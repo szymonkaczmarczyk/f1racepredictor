@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block topbar %}<a class="ghost-link" href="{{ '/' if lang == 'en' else '/?lang=' ~ lang }}" data-path="/" data-i18n="nav.back">Back to predictions</a>{% endblock %}
+
+{% block main_class %}page-narrow{% endblock %}
+
+{% block main %}
+  <article class="card legal" aria-labelledby="legal-title">
+    <h1 id="legal-title">{{ title.split(" · ")[0] }}</h1>
+    {% include "legal/" ~ doc ~ "_" ~ lang ~ ".html" %}
+  </article>
+{% endblock %}

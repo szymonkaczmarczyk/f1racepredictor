@@ -1,0 +1,9 @@
+.venv
+.git
+**/__pycache__
+data
+models
+*.tmp
+.DS_Store
+.env
+.env.*

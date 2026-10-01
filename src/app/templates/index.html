@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block brand_sub %}<p class="sub" id="model-sub" data-i18n="model.loading">loading model…</p>{% endblock %}
+
+{% block topbar %}
+    <div class="metric" id="metric-hit"><span class="metric-value">—</span><span class="metric-label" data-i18n="metric.hit">podium hit rate</span></div>
+    <div class="metric" id="metric-auc"><span class="metric-value">—</span><span class="metric-label" data-i18n="metric.grid">grid order alone</span></div>
+    <button class="ghost" id="btn-about" type="button" data-i18n="btn.about">How it works</button>
+{% endblock %}
+
+{% block main_class %}layout{% endblock %}
+
+{% block main %}
+  <section class="card panel-track" aria-labelledby="track-title">
+    <h2 id="track-title" data-i18n="track.title">Track and Race Conditions</h2>
+
+    <label class="field">
+      <span data-i18n="track.season">Select Season</span>
+      <select id="season-select">
+        <option value="2026" selected>2026 (Simulated)</option>
+        <option value="2025">2025 (Real)</option>
+        <option value="2024">2024 (Real)</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span data-i18n="track.select">Select Track</span>
+      <select id="track-select" disabled></select>
+    </label>
+
+    <div class="track-map is-loading" id="track-map" aria-busy="true"><div class="skeleton skeleton-map"></div></div>
+    <p class="caption" id="track-caption">—</p>
+
+    <div class="readouts">
+      <div class="readout">
+        <span class="readout-label" data-i18n="ro.difficulty">Track Difficulty</span>
+        <span class="readout-value"><b id="ro-difficulty">—</b>/10</span>
+        <span class="readout-note" id="ro-difficulty-note"></span>
+      </div>
+      <div class="readout">
+        <span class="readout-label" data-i18n="ro.deg">Tyre Degradation</span>
+        <span class="readout-value"><b id="ro-deg">—</b>/10</span>
+        <span class="readout-note" id="ro-deg-note"></span>
+      </div>
+      <div class="readout">
+        <span class="readout-label" data-i18n="ro.distance">Race Distance</span>
+        <span class="readout-value"><b id="ro-distance">—</b> km</span>
+      </div>
+      <div class="readout">
+        <span class="readout-label" data-i18n="ro.corners">Corners</span>
+        <span class="readout-value"><b id="ro-corners">—</b></span>
+      </div>
+      <div class="readout">
+        <span class="readout-label" data-i18n="ro.laps">Laps</span>
+        <span class="readout-value"><b id="ro-laps">—</b></span>
+      </div>
+    </div>
+
+    <label class="field">
+      <span data-i18n="weather.title">Weather Conditions</span>
+      <select id="weather-select">
+        <option value="dry" data-i18n="weather.dry">Dry</option>
+        <option value="cloudy" data-i18n="weather.cloudy">Cloudy</option>
+        <option value="light_rain" data-i18n="weather.light_rain">Light rain</option>
+        <option value="mixed" data-i18n="weather.mixed">Mixed / drying</option>
+        <option value="heavy_rain" data-i18n="weather.heavy_rain">Heavy rain</option>
+      </select>
+    </label>
+
+    <div class="track-stats" id="track-stats"></div>
+  </section>
+
+
+  <section class="card panel-drivers" aria-labelledby="grid-title">
+    <div class="panel-head">
+      <h2 id="grid-title" data-i18n="grid.title">Starting Grid</h2>
+      <span class="chip" id="grid-source"></span>
+    </div>
+
+    <div class="grid-head">
+      <span data-i18n="grid.col.grid">Grid</span><span data-i18n="grid.col.driver">Driver</span><span data-i18n="grid.col.team">Team / car</span><span data-i18n="grid.col.history">At this track</span><span></span>
+    </div>
+    <div id="entries" aria-live="polite" aria-busy="true">
+      {% for _ in range(10) %}<div class="entry skeleton-row"><span class="skeleton skeleton-box"></span><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line short"></span><span class="skeleton skeleton-line short"></span><span></span></div>{% endfor %}
+    </div>
+
+    <div class="panel-foot">
+      <button class="ghost" id="btn-sync" type="button" data-i18n="btn.sync">Sync live data</button>
+      <button class="ghost" id="btn-reset-grid" type="button" data-i18n="btn.reset" hidden>Reset grid</button>
+      <button class="primary" id="btn-predict" type="button" data-i18n="btn.predict" disabled>Predict the podium</button>
+    </div>
+    <p class="hint" id="entries-hint"></p>
+  </section>
+
+
+  <section class="card panel-results" id="results" aria-labelledby="results-title" aria-live="polite" hidden>
+    <div class="panel-head">
+      <h2 id="results-title" data-i18n="results.title">Predicted result</h2>
+      <span class="chip" id="results-chip"></span>
+    </div>
+    <div class="podium" id="podium"></div>
+    <div class="order" id="order"></div>
+    <div class="panel-foot">
+      <span class="hint" id="share-hint"></span>
+      <button class="ghost" id="btn-share" type="button" data-i18n="btn.share">Share podium</button>
+    </div>
+  </section>
+
+  <section class="card panel-championship" id="championship" aria-labelledby="champ-title">
+    <div class="panel-head">
+      <h2 id="champ-title" data-i18n="champ.title">Championship outlook</h2>
+      <span class="chip" id="champ-chip">rest of the season</span>
+    </div>
+    <p class="hint" id="champ-hint">Runs every remaining race thousands of times with the model and adds up the points.</p>
+    <button class="ghost" id="btn-champ" type="button">Simulate the rest of the season</button>
+    <div class="champ-tables" id="champ-tables" aria-live="polite" hidden>
+      <div><h3 data-i18n="champ.drivers">Drivers</h3><div id="champ-drivers"></div></div>
+      <div><h3 data-i18n="champ.teams">Constructors</h3><div id="champ-teams"></div></div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block after %}
+<div class="sticky-cta" id="sticky-cta" hidden>
+  <button class="primary" id="btn-predict-sticky" type="button" data-i18n="btn.predict" disabled>Predict the podium</button>
+</div>
+
+<dialog id="about" aria-labelledby="about-title">
+  <h2 id="about-title" data-i18n="about.title" tabindex="-1" autofocus>How this predicts a podium</h2>
+  <div id="about-body" aria-live="polite"></div>
+  <form method="dialog"><button class="primary" data-i18n="about.close">Close</button></form>
+</dialog>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='app.js') }}"></script>{% endblock %}

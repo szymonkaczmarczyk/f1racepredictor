@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Race Predictor API — dokumentacja</title>
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #4b5563;
+    --line: #d1d5db;
+    --head: #eef2fb;
+    --blue: #2563eb;
+    --code-bg: #111827;
+    --code-ink: #e5e7eb;
+    --chip: #f1f3f7;
+    --get: #2563eb;
+    --post: #059669;
+    --put: #d97706;
+    --patch: #7c3aed;
+    --delete: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font: 14px/1.6 "Segoe UI", "Noto Sans", system-ui, -apple-system, sans-serif;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 56px 40px 80px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--blue);
+  }
+  h3 { font-size: 16px; margin: 28px 0 10px; }
+  h4 { color: var(--blue); font-size: 13.5px; margin: 22px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); margin-bottom: 18px; }
+  code {
+    font: 12.5px/1.5 "Cascadia Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    background: var(--chip);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  pre {
+    margin: 0 0 16px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    font: 12.5px/1.6 "Cascadia Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 13.5px; }
+  th, td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--head); font-weight: 600; }
+  td:first-child code { white-space: nowrap; }
+  td table { margin: 8px 0 4px; }
+  .endpoint {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+  }
+  .endpoint p:last-child { margin-bottom: 0; }
+  .endpoint__line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    min-width: 54px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .badge--get { background: var(--get); }
+  .badge--post { background: var(--post); }
+  .badge--put { background: var(--put); }
+  .badge--patch { background: var(--patch); }
+  .badge--delete { background: var(--delete); }
+  .lock { font-size: 12px; color: var(--muted); }
+  section { margin-top: 44px; }
+  .page { break-before: page; }
+  .toc { columns: 2; column-gap: 32px; padding-left: 18px; margin: 0 0 8px; }
+  .toc li { break-inside: avoid; margin-bottom: 2px; }
+  .note { color: var(--muted); font-size: 13px; }
+  @page { size: A4; margin: 18mm 16mm; }
+  @media print {
+    main { padding: 0; max-width: none; }
+    section { margin-top: 0; }
+    pre, table, .endpoint { break-inside: avoid; }
+    h2, h3, h4 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Race Predictor API — dokumentacja</h1>
+<p class="lead">
+  Dane do interfejsu: <code>/api/bootstrap</code>, <code>/api/track/:id</code>, <code>/api/lineup</code>, <code>/api/driver/:id</code><br>
+  Predykcje: <code>/api/predict</code>, <code>/api/championship</code>, <code>/api/ledger</code><br>
+  Synchronizacja danych: <code>/api/sync</code>
+</p>
+<pre>https://&lt;twoja-domena&gt;
+http://localhost:5050   (lokalnie, scripts/run_app.py)
+http://localhost:8000   (lokalnie, docker compose)</pre>
+
+<h3>Spis treści</h3>
+<ol class="toc">
+  <li><a href="#auth">Autoryzacja i ochrona</a></li>
+  <li><a href="#conv">Konwencje i błędy</a></li>
+  <li><a href="#bootstrap">GET /api/bootstrap</a></li>
+  <li><a href="#track">GET /api/track/:circuit_id</a></li>
+  <li><a href="#lineup">GET /api/lineup</a></li>
+  <li><a href="#driver">GET /api/driver/:driver_id</a></li>
+  <li><a href="#predict">POST /api/predict</a></li>
+  <li><a href="#entry">Obiekt wpisu predykcji</a></li>
+  <li><a href="#championship">GET /api/championship</a></li>
+  <li><a href="#ledger">GET /api/ledger</a></li>
+  <li><a href="#sync">POST /api/sync</a></li>
+</ol>
+
+<section id="auth">
+  <h2>Autoryzacja i ochrona</h2>
+  <p>
+    API nie ma kont ani kluczy: wszystkie endpointy są publiczne i tylko do odczytu, poza
+    <code>POST /api/predict</code> (liczy predykcję, czasem zapisuje ją w historii trafności) i
+    <code>POST /api/sync</code> (pobiera nowe dane i douczy model). Zamiast logowania serwer stosuje trzy zabezpieczenia:
+  </p>
+  <table>
+    <tr><th>Mechanizm</th><th>Opis</th></tr>
+    <tr><td><code>Host</code></td><td>Serwer odpowiada tylko hostom z listy <code>F1_TRUSTED_HOSTS</code> (domyślnie <code>127.0.0.1,localhost</code>). Inny host → <code>400</code>, <code>{"error": "Host 'evil.example' is not trusted."}</code>.</td></tr>
+    <tr><td><code>Origin</code> / <code>Sec-Fetch-Site</code></td><td>Żądania POST z obcej strony są odrzucane (<code>403</code>, <code>{"error": "cross-origin request blocked"}</code>). Bez tych nagłówków (np. <code>curl</code>) żądanie przechodzi.</td></tr>
+    <tr><td>Rozmiar treści</td><td>Maksymalnie 64 kB na żądanie, inaczej <code>413</code>.</td></tr>
+  </table>
+  <p>Wymagane nagłówki przy żądaniach z treścią:</p>
+  <table>
+    <tr><th>Nagłówek</th><th>Opis</th></tr>
+    <tr><td><code>Content-Type</code></td><td><code>application/json</code> dla <code>POST /api/predict</code>.</td></tr>
+  </table>
+  <p>Przykład (curl):</p>
+<pre>curl https://&lt;twoja-domena&gt;/api/lineup
+
+curl -H 'Content-Type: application/json' \
+  -d '{"circuit_id":"sepang","weather":"dry","entries":[{"driver_id":"russell","grid":1}]}' \
+  https://&lt;twoja-domena&gt;/api/predict</pre>
+  <p>
+    <code>POST /api/sync</code> można wyłączyć zmienną <code>F1_SYNC_ENDPOINT=0</code> (tak jest w kontenerach
+    Dockera) i ma odstęp co najmniej <strong>60 sekund</strong> między wywołaniami.
+  </p>
+</section>
+
+<section id="conv" class="page">
+  <h2>Konwencje i błędy</h2>
+  <table>
+    <tr><th>Zasada</th><th>Opis</th></tr>
+    <tr><td>Format</td><td>Wszystkie odpowiedzi to JSON w UTF-8 z nagłówkiem <code>Cache-Control: no-store</code>.</td></tr>
+    <tr><td>Daty</td><td>Dzień: <code>YYYY-MM-DD</code>. Chwila: ISO 8601 w UTC, np. <code>2026-10-04T07:00:00+00:00</code>.</td></tr>
+    <tr><td>Prawdopodobieństwa</td><td>Liczby od 0 do 1, zaokrąglone do czterech miejsc (<code>0.7648</code> = 76,48%).</td></tr>
+    <tr><td>Identyfikatory</td><td>Takie jak w Jolpica-F1 (dawne Ergast): kierowca <code>russell</code>, <code>max_verstappen</code>; zespół <code>mercedes</code>, <code>red_bull</code>; tor <code>sepang</code>, <code>baku</code>. Wyścig: <code>{sezon}_{runda}</code>, np. <code>2026_16</code>.</td></tr>
+    <tr><td>Sezon</td><td>Parametr <code>season</code> jest wszędzie opcjonalny; domyślnie najnowszy sezon w danych.</td></tr>
+    <tr><td>Pozycje</td><td>Numery pól startowych i miejsc od 1. <code>P1</code> w tekstach to pierwsze miejsce.</td></tr>
+  </table>
+  <p>Każdy błąd ma ten sam kształt, jedno pole z opisem po angielsku:</p>
+<pre>{"error": "entry 1: grid must be 1-26"}</pre>
+  <table>
+    <tr><th>Kod</th><th>Kiedy</th></tr>
+    <tr><td><code>400</code></td><td>Błędne dane wejściowe (opis w <code>error</code>), treść, która nie jest obiektem JSON, albo niezaufany host.</td></tr>
+    <tr><td><code>403</code></td><td>POST z obcej strony albo <code>/api/sync</code> wyłączony na tym serwerze.</td></tr>
+    <tr><td><code>404</code></td><td>Nieznany tor, kierowca albo endpoint.</td></tr>
+    <tr><td><code>409</code></td><td>Synchronizacja już trwa.</td></tr>
+    <tr><td><code>413</code></td><td>Treść żądania większa niż 64 kB.</td></tr>
+    <tr><td><code>429</code></td><td>Synchronizacja wywołana częściej niż raz na minutę.</td></tr>
+    <tr><td><code>500</code></td><td>Błąd serwera (<code>{"error": "internal error"}</code>) albo nieudany krok synchronizacji. Szczegóły tylko w logu serwera.</td></tr>
+  </table>
+</section>
+
+<section id="bootstrap" class="page">
+  <h2>GET /api/bootstrap</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/bootstrap</code></div>
+    <p>Wszystko, czego interfejs potrzebuje na start: tory, kierowcy, zespoły, kalendarz sezonu, najbliższy wyścig z prognozą pogody, stan synchronizacji i wyniki walidacji modelu.</p>
+  </div>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr>
+    <tr><td><code>season</code></td><td>nie</td><td>Sezon, np. <code>2025</code>. Domyślnie najnowszy. Dla starszego sezonu <code>next_race</code> jest <code>null</code>.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/bootstrap</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "tracks": [
+    {
+      "circuit_id": "albert_park", "name": "Albert Park Grand Prix Circuit",
+      "race_name": "Australian Grand Prix", "country": "Australia", "locality": "Melbourne",
+      "laps": 58, "length_m": 5278, "distance_km": 306, "corners": 18,
+      "track_difficulty": 8, "tyre_degradation": 10, "is_street": true,
+      "last_season": 2026, "on_calendar": true, "round": 1, "has_map": true,
+      "stats": { "grid_stickiness": 0.727, "pole_win_rate": 0.455, "sc_rate": 0.571, … }
+    }, …
+  ],
+  "drivers": [
+    {
+      "driver_id": "albon", "name": "Alexander Albon", "code": "ALB",
+      "team": "williams", "team_name": "Williams", "active": true, "last_season": 2026,
+      "career": { "races": 144, "wins": 0, "podiums": 2, "points": 313.0, … },
+      "recent": { "seasons": "2024-2026", "avg_grid": 13.698, "podium_rate": 0.0, … },
+      "season": { "races": 15, "points": 5.0, "podiums": 0, "best_finish": 8 }
+    }, …
+  ],
+  "teams": { "mercedes": { "name": "Mercedes", "active": true, … }, … },
+  "calendar": [
+    {
+      "race_id": "2026_16", "round": 16, "race_name": "Bahrain Grand Prix in Malaysia",
+      "circuit_id": "sepang", "date": "2026-10-04",
+      "quali_utc": "2026-10-03T08:00:00+00:00", "start_utc": "2026-10-04T07:00:00+00:00",
+      "status": "upcoming", "completed": false, "cancelled": false, …
+    }, …
+  ],
+  "next_race": {
+    "race_id": "2026_16", "circuit_id": "sepang", …,
+    "weather": { "preset": "heavy_rain", "rain_chance": 0.91, "rain_mm": 4.0,
+                 "temperature_c": 28.2, "wet_index": 0.85, "source": "open-meteo" }
+  },
+  "weather_options": ["dry", "cloudy", "light_rain", "heavy_rain", "mixed"],
+  "sync": { "last_success_utc": "2026-10-01T11:28:34+00:00", "results_through": "2026_15",
+            "retrain": "full", "running": false, "auto": true, … },
+  "model": { "trained_through": "2026-09-26", "seasons": [1996, 2026],
+             "summary": { "podium_hit_rate": 0.696, "baseline_podium_hit_rate": 0.687, … },
+             "validation": […], "calibration": {…}, "importance": […] }
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>tracks</code></td><td>Tory: najpierw kalendarz sezonu w kolejności rund (<code>on_calendar</code>, <code>round</code>), potem pozostałe z historią. <code>stats</code> — zachowanie toru w historii, patrz <a href="#track">GET /api/track</a>.</td></tr>
+    <tr><td><code>drivers</code></td><td>Kierowcy: aktywni najpierw. <code>career</code> — cała kariera, <code>recent</code> — ostatnie sezony, <code>season</code> — bieżący sezon.</td></tr>
+    <tr><td><code>teams</code></td><td>Zespoły według <code>constructor_id</code>.</td></tr>
+    <tr><td><code>calendar</code></td><td>Wyścigi sezonu. <code>status</code>:
+      <table>
+        <tr><th>Wartość</th><th>Znaczenie</th></tr>
+        <tr><td><code>completed</code></td><td>rozegrany, wyniki są w danych</td></tr>
+        <tr><td><code>upcoming</code></td><td>przed startem</td></tr>
+        <tr><td><code>in_progress</code></td><td>trwa</td></tr>
+        <tr><td><code>awaiting_results</code></td><td>skończył się, ale źródło jeszcze nie ma wyników</td></tr>
+        <tr><td><code>cancelled</code></td><td>odwołany</td></tr>
+      </table>
+    </td></tr>
+    <tr><td><code>next_race</code></td><td>Najbliższy wyścig z prognozą pogody (<code>weather</code>, z Open-Meteo, <code>null</code> poza zasięgiem prognozy).</td></tr>
+    <tr><td><code>weather_options</code></td><td>Dozwolone wartości pola <code>weather</code> w <code>POST /api/predict</code>.</td></tr>
+    <tr><td><code>sync</code></td><td>Ostatnia udana synchronizacja, czy trwa teraz (<code>running</code>) i czy działa automatycznie (<code>auto</code>).</td></tr>
+    <tr><td><code>model</code></td><td>Do kiedy model jest wytrenowany, średnie wyniki walidacji (<code>summary</code>), wyniki sezon po sezonie (<code>validation</code>), kalibracja i najważniejsze cechy.</td></tr>
+  </table>
+</section>
+
+<section id="track" class="page">
+  <h2>GET /api/track/:circuit_id</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/track/{circuit_id}</code></div>
+    <p>Pełny opis jednego toru: dane, trudność, zużycie opon, statystyki z historii i obrys do narysowania mapy.</p>
+  </div>
+  <h4>Parametry ścieżki</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr>
+    <tr><td><code>circuit_id</code></td><td>tak</td><td>Identyfikator toru, np. <code>baku</code>.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/track/baku</pre>
+  <h4>Odpowiedź — błąd (404)</h4>
+<pre>{"error": "unknown circuit"}</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "circuit_id": "baku", "name": "Baku City Circuit", "race_name": "European Grand Prix",
+  "country": "Azerbaijan", "locality": "Baku",
+  "laps": 51, "length_m": 6003, "distance_km": 306, "corners": 19,
+  "track_difficulty": 8, "tyre_degradation": 4, "is_street": true,
+  "last_season": 2026, "debut": false,
+  "stats": {
+    "grid_stickiness": 0.567, "pole_win_rate": 0.4, "dnf_rate": 0.221,
+    "incident_rate": 0.085, "overtakes_per_race": 42.6, "volatility": 4.191,
+    "stops_per_car": 1.36, "deg_pct_per_lap": 0.0018, "deg_window": "pit stops 2024-2026",
+    "sc_rate": 0.625, "sc_races": 8, "starts": 204
+  },
+  "geometry": {
+    "view_box": "0 0 1000 620", "path": "M 861.0 151.9 L …",
+    "corners": [{"n": 1, "x": 861.0, "y": 151.9}, …],
+    "start": {"x": 803.4, "y": 181.2, "angle": -28.4}, …
+  }
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>track_difficulty</code> / <code>tyre_degradation</code></td><td>Skala 1–10, liczona z historii (gęstość zakrętów, wypadki, mury; liczba pit stopów na 100 km).</td></tr>
+    <tr><td><code>debut</code></td><td><code>true</code> dla toru bez historii wyścigów.</td></tr>
+    <tr><td><code>stats.grid_stickiness</code></td><td>Jak często podium pochodzi z trzech pierwszych pól startowych.</td></tr>
+    <tr><td><code>stats.pole_win_rate</code></td><td>Jak często pole position kończy się wygraną.</td></tr>
+    <tr><td><code>stats.dnf_rate</code> / <code>incident_rate</code></td><td>Odsetek nieukończonych startów / odpadnięć po wypadku.</td></tr>
+    <tr><td><code>stats.overtakes_per_race</code> / <code>volatility</code></td><td>Zyskane pozycje na wyścig / średnia zmiana pozycji jednego kierowcy.</td></tr>
+    <tr><td><code>stats.stops_per_car</code> / <code>deg_pct_per_lap</code></td><td>Pit stopy na bolid / spadek tempa (%) na każde okrążenie zużycia opony.</td></tr>
+    <tr><td><code>stats.sc_rate</code> / <code>sc_races</code></td><td>Odsetek wyścigów od 2018 z safety carem lub czerwoną flagą / ile wyścigów to policzono.</td></tr>
+    <tr><td><code>stats.starts</code></td><td>Na ilu startach policzono statystyki.</td></tr>
+    <tr><td><code>geometry</code></td><td>Obrys toru w SVG (<code>path</code> w układzie <code>view_box</code>), numery zakrętów i linia startu. Brak klucza = brak obrysu.</td></tr>
+  </table>
+</section>
+
+<section id="lineup" class="page">
+  <h2>GET /api/lineup</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/lineup</code></div>
+    <p>Pola startowe dla wybranego wyścigu, z informacją, skąd pochodzą, i historią każdego kierowcy na tym torze. To ten grid trzeba wysłać do <code>POST /api/predict</code>.</p>
+  </div>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr>
+    <tr><td><code>circuit_id</code></td><td>nie</td><td>Tor. Domyślnie najbliższy wyścig. Dla toru z kalendarza: jego wyścig w sezonie.</td></tr>
+    <tr><td><code>season</code></td><td>nie</td><td>Sezon, domyślnie najnowszy.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/lineup?circuit_id=sepang</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "source": "expected",
+  "race": { "race_name": "Bahrain Grand Prix in Malaysia", "round": 16, "date": "2026-10-04",
+            "status": "upcoming", "quali_utc": "2026-10-03T08:00:00+00:00" },
+  "entries": [
+    { "driver_id": "russell", "constructor_id": "mercedes", "grid": 1,
+      "quali_position": 1, "quali_gap_pct": 0.0 },
+    { "driver_id": "antonelli", "constructor_id": "mercedes", "grid": 2,
+      "quali_position": 2, "quali_gap_pct": 0.044 }, …
+  ],
+  "track_history": {
+    "hamilton": { "races": 11, "avg": 3.9, "podiums": 6, "wins": 1, … },
+    "bearman": null, …
+  }
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>source</code></td><td>Skąd pochodzi kolejność (od najsłabszego do najpewniejszego):
+      <table>
+        <tr><th>Wartość</th><th>Znaczenie</th></tr>
+        <tr><td><code>expected</code></td><td>przed kwalifikacjami: mediana straty do pole z 3 ostatnich kwalifikacji</td></tr>
+        <tr><td><code>expected_practice</code></td><td>jak wyżej, połączone z treningami tego weekendu</td></tr>
+        <tr><td><code>openf1</code></td><td>wynik kwalifikacji z OpenF1 (oficjalne źródło jeszcze go nie ma)</td></tr>
+        <tr><td><code>qualifying</code></td><td>oficjalny wynik kwalifikacji</td></tr>
+        <tr><td><code>starting_grid</code></td><td>oficjalne pola startowe z karami (OpenF1)</td></tr>
+        <tr><td><code>race</code></td><td>wyścig rozegrany: faktyczne pola startowe</td></tr>
+      </table>
+    </td></tr>
+    <tr><td><code>entries[]</code></td><td><code>grid</code> — pole startowe, <code>quali_position</code> — miejsce w kwalifikacjach, <code>quali_gap_pct</code> — strata do najszybszego w procentach.</td></tr>
+    <tr><td><code>track_history</code></td><td>Wyniki kierowcy na tym torze: starty, średnie miejsce, podia, wygrane. <code>null</code> = nie startował tu.</td></tr>
+    <tr><td><code>race</code></td><td>Wyścig, którego dotyczy grid; <code>null</code> dla toru spoza kalendarza.</td></tr>
+  </table>
+</section>
+
+<section id="driver" class="page">
+  <h2>GET /api/driver/:driver_id</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/driver/{driver_id}</code></div>
+    <p>Profil kierowcy: kariera, ostatnie sezony, bieżący sezon i wyniki na każdym torze.</p>
+  </div>
+  <h4>Parametry ścieżki i query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr>
+    <tr><td><code>driver_id</code></td><td>tak</td><td>Identyfikator kierowcy, np. <code>russell</code>.</td></tr>
+    <tr><td><code>season</code></td><td>nie</td><td>Sezon, z perspektywy którego liczone są statystyki. Domyślnie najnowszy.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/driver/russell</pre>
+  <h4>Odpowiedź — błąd (404)</h4>
+<pre>{"error": "unknown driver"}</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "driver_id": "russell", "name": "George Russell", "code": "RUS", "dob": "1998-02-15",
+  "team": "mercedes", "team_name": "Mercedes", "active": true,
+  "first_season": 2019, "last_season": 2026,
+  "career": { "races": 167, "wins": 8, "podiums": 32, "poles": 13, "points": 1155.0,
+              "avg_finish": 8.154, "dnf_rate": 0.132 },
+  "recent": { "seasons": "2024-2026", "races": 63, "avg_grid": 4.492, "avg_finish": 4.967,
+              "podium_rate": 0.333, "dnf_rate": 0.079, "incident_rate": 0.029,
+              "mechanical_rate": 0.034, "dsq_rate": 0.016 },
+  "season": { "races": 15, "points": 202.0, "podiums": 8, "best_finish": 1 },
+  "tracks": {
+    "albert_park": { "races": 6, "avg": 8.0, "avg_grid": 6.5, "best": 1, "podiums": 3,
+                     "wins": 1, "dnfs": 2, "incidents": 0, "dsqs": 0,
+                     "last_result": 1, "last_season": 2026 }, …
+  }
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>career</code></td><td>Cała kariera w danych (od 1996).</td></tr>
+    <tr><td><code>recent</code></td><td>Ostatnie sezony (<code>seasons</code>): średnie pole i meta, odsetek podiów, nieukończeń, wypadków, awarii i dyskwalifikacji.</td></tr>
+    <tr><td><code>season</code></td><td>Bieżący sezon.</td></tr>
+    <tr><td><code>tracks</code></td><td>Wyniki na każdym torze, na którym kierowca startował (klucz = <code>circuit_id</code>).</td></tr>
+  </table>
+</section>
+
+<section id="predict" class="page">
+  <h2>POST /api/predict</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/api/predict</code></div>
+    <p>Liczy predykcję wyścigu dla podanych pól startowych: szanse na wygraną, podium i punkty, ryzyko nieukończenia i oczekiwane miejsce każdego kierowcy (20 000 symulowanych wyścigów). Dla wyścigu już rozegranego liczy ją tak, jak wyglądałaby dzień przed nim.</p>
+  </div>
+  <h4>Treść żądania (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr>
+    <tr><td><code>circuit_id</code></td><td>tak</td><td>Tor, np. <code>sepang</code>.</td></tr>
+    <tr><td><code>entries</code></td><td>tak</td><td>Tablica od 1 do 26 bolidów, najlepiej prosto z <code>GET /api/lineup</code>. Każdy element:
+      <table>
+        <tr><th>Pole</th><th>Znaczenie</th></tr>
+        <tr><td><code>driver_id</code></td><td>wymagane, znany kierowca, bez powtórzeń</td></tr>
+        <tr><td><code>constructor_id</code></td><td>zespół; domyślnie ostatni zespół kierowcy</td></tr>
+        <tr><td><code>grid</code></td><td>pole startowe 1–26; domyślnie kolejność w tablicy</td></tr>
+        <tr><td><code>quali_position</code></td><td>miejsce w kwalifikacjach 1–26</td></tr>
+        <tr><td><code>quali_gap_pct</code></td><td>strata do pole w procentach, 0–20</td></tr>
+      </table>
+    </td></tr>
+    <tr><td><code>weather</code></td><td>nie</td><td>Jedna z <code>weather_options</code>: <code>dry</code> (domyślnie), <code>cloudy</code>, <code>light_rain</code>, <code>mixed</code>, <code>heavy_rain</code>.</td></tr>
+    <tr><td><code>season</code></td><td>nie</td><td>Sezon; domyślnie najnowszy.</td></tr>
+    <tr><td><code>tyre_degradation</code> / <code>track_difficulty</code> / <code>laps</code> / <code>distance_km</code></td><td>nie</td><td>Nadpisanie wartości toru (skale 1–10, liczba okrążeń, dystans).</td></tr>
+    <tr><td><code>grid_source</code></td><td>nie</td><td>Skąd pochodzi grid (wartości jak <code>source</code> w <code>/api/lineup</code>). Gdy podany, a wyścig jest przed startem, predykcja trafia do historii trafności. Wartość <code>what_if</code> = grid zmieniony ręcznie, nigdy nie zapisywany.</td></tr>
+    <tr><td><code>base_source</code></td><td>nie</td><td>Przy <code>what_if</code>: źródło gridu przed zmianą. Dla <code>expected</code> i <code>expected_practice</code> liczy model przedkwalifikacyjny.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://&lt;twoja-domena&gt;/api/predict
+Content-Type: application/json
+
+{
+  "circuit_id": "sepang",
+  "weather": "light_rain",
+  "entries": [
+    {"driver_id": "russell", "constructor_id": "mercedes", "grid": 1, "quali_gap_pct": 0.0},
+    {"driver_id": "antonelli", "constructor_id": "mercedes", "grid": 2, "quali_gap_pct": 0.044},
+    …
+  ]
+}</pre>
+  <h4>Odpowiedź — błąd walidacji (400)</h4>
+<pre>{"error": "unknown circuit"}
+{"error": "entry 1: grid must be 1-26"}
+{"error": "at most 26 cars"}
+{"error": "unknown weather"}</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "race": { "race_name": "Bahrain Grand Prix in Malaysia", "round": 16, "date": "2026-10-04",
+            "start_utc": "2026-10-04T07:00:00+00:00", "status": "upcoming" },
+  "conditions": { "weather": "light_rain", "wet_index": 0.45,
+                  "tyre_degradation": 5.0, "track_difficulty": 2.0 },
+  "model": { "stage": "grid", "trained_through": "2026-09-26", "seasons": [1996, 2026], "summary": {…} },
+  "track": { "circuit_id": "sepang", "name": "Sepang International Circuit", … },
+  "entries": [
+    {
+      "driver_id": "russell", "name": "George Russell", "code": "RUS",
+      "constructor_id": "mercedes", "team_name": "Mercedes", "grid": 1,
+      "p_win": 0.5075, "p_podium": 0.7648, "p_points": 0.9137, "p_podium_grid": 0.7138,
+      "p_dnf": 0.0853, "p_crash": 0.0091, "p_dsq": 0.0084,
+      "expected_position": 1, "expected_finish": 3.7, "expected_points": 18.3,
+      "finish_range": [1, 8],
+      "notes": ["starts P1", "recent form ~P5.4", "car on the podium 63% of recent starts"],
+      "note_codes": [{"code": "grid_front", "values": {"grid": 1}}, …],
+      "track_history": null
+    }, …
+  ]
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>entries</code></td><td>Kierowcy w przewidywanej kolejności, patrz <a href="#entry">Obiekt wpisu predykcji</a>.</td></tr>
+    <tr><td><code>model.stage</code></td><td><code>grid</code> — model po kwalifikacjach, <code>pre_qualifying</code> — model przedkwalifikacyjny (grid jest tylko szacunkiem).</td></tr>
+    <tr><td><code>conditions</code></td><td>Warunki, z którymi liczono: pogoda i jej wskaźnik 0–1, zużycie opon po uwzględnieniu deszczu, trudność toru.</td></tr>
+    <tr><td><code>race</code></td><td>Wyścig na tym torze w sezonie; brak klucza dla toru spoza kalendarza.</td></tr>
+    <tr><td><code>mode</code></td><td>Tylko dla wyścigu rozegranego: <code>backtest</code>. Wtedy każdy wpis ma też <code>actual</code> — <code>{"position": 1, "classified": true, "status": "Finished"}</code>.</td></tr>
+  </table>
+</section>
+
+<section id="entry" class="page">
+  <h3 style="margin-top:0">Obiekt wpisu predykcji — znaczenie kluczy</h3>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>driver_id</code>, <code>name</code>, <code>code</code></td><td>Kierowca i jego trzyliterowy skrót.</td></tr>
+    <tr><td><code>constructor_id</code>, <code>team_name</code></td><td>Zespół.</td></tr>
+    <tr><td><code>grid</code></td><td>Pole startowe użyte w predykcji.</td></tr>
+    <tr><td><code>p_win</code> / <code>p_podium</code> / <code>p_points</code></td><td>Szansa na wygraną, podium i punkty (0–1). Zawsze spójne: suma <code>p_win</code> = 1, suma <code>p_podium</code> = 3.</td></tr>
+    <tr><td><code>p_podium_grid</code></td><td>Szansa na podium, jaką daje samo pole startowe, bez formy i historii — punkt odniesienia dla <code>p_podium</code>.</td></tr>
+    <tr><td><code>p_dnf</code> / <code>p_crash</code> / <code>p_dsq</code></td><td>Ryzyko nieukończenia z dowolnej przyczyny / po wypadku / dyskwalifikacji.</td></tr>
+    <tr><td><code>expected_position</code></td><td>Miejsce w przewidywanej kolejności (według oczekiwanych punktów).</td></tr>
+    <tr><td><code>expected_finish</code> / <code>finish_range</code></td><td>Średnie miejsce na mecie w symulacjach / zakres, w którym kończy 80% symulacji.</td></tr>
+    <tr><td><code>expected_points</code></td><td>Oczekiwana liczba punktów (25-18-15-…).</td></tr>
+    <tr><td><code>notes</code></td><td>Do czterech krótkich uzasadnień po angielsku.</td></tr>
+    <tr><td><code>note_codes</code></td><td>Te same uzasadnienia jako kod + wartości, do tłumaczenia po stronie klienta:
+      <table>
+        <tr><th>Kod</th><th>Znaczenie (wartości)</th></tr>
+        <tr><td><code>grid_front</code> / <code>grid_deep</code></td><td>start z przodu / daleko w stawce (<code>grid</code>)</td></tr>
+        <tr><td><code>form</code></td><td>ostatnia forma, średnie miejsce (<code>pos</code>)</td></tr>
+        <tr><td><code>team_podium</code></td><td>jak często bolid staje na podium (<code>rate</code>)</td></tr>
+        <tr><td><code>over_performs</code> / <code>weaker_here</code></td><td>na tym torze lepiej / gorzej niż zwykle (<code>delta</code>)</td></tr>
+        <tr><td><code>podiums_here</code> / <code>crashed_here</code></td><td>podia / wypadki na tym torze (<code>n</code>)</td></tr>
+        <tr><td><code>reliability</code> / <code>crash_risk</code></td><td>ryzyko awarii / podwyższone ryzyko wypadku (<code>rate</code>)</td></tr>
+      </table>
+    </td></tr>
+    <tr><td><code>track_history</code></td><td>Wyniki kierowcy na tym torze; <code>null</code> = nie startował tu.</td></tr>
+  </table>
+  <p class="note">Predykcja nie zapisuje się, jeśli nie podasz <code>grid_source</code>. Z interfejsu zapis dzieje się automatycznie: aplikacja sama odnotowuje predykcję od tygodnia przed wyścigiem.</p>
+</section>
+
+<section id="championship" class="page">
+  <h2>GET /api/championship</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/championship</code></div>
+    <p>Prognoza mistrzostw: każdy pozostały wyścig (i sprint) rozgrywany 20 000 razy od dzisiejszej klasyfikacji. Liczy się ok. 5 sekund, potem jest trzymana w pamięci do następnej zmiany danych lub modelu. Bez parametrów.</p>
+  </div>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/championship</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "season": 2026, "sims": 20000, "races_left": 8, "sprints_left": 1, "sprints_known": true,
+  "next_races": ["Bahrain Grand Prix in Malaysia", "Singapore Grand Prix", …],
+  "drivers": [
+    { "id": "antonelli", "name": "Andrea Kimi Antonelli", "code": "ANT",
+      "team_id": "mercedes", "team_name": "Mercedes",
+      "points_now": 302.0, "expected_points": 421.9,
+      "points_p10": 326.0, "points_p90": 508.0, "p_title": 0.6176 }, …
+  ],
+  "teams": [
+    { "id": "mercedes", "name": "Mercedes", "points_now": 538.0, "expected_points": 787.3,
+      "points_p10": 681.0, "points_p90": 887.0, "p_title": 0.9584 }, …
+  ]
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>races_left</code> / <code>sprints_left</code></td><td>Ile wyścigów i sprintów zostało w sezonie.</td></tr>
+    <tr><td><code>sprints_known</code></td><td><code>false</code>, gdy nie udało się sprawdzić weekendów sprinterskich w OpenF1 — wtedy sprinty są pominięte.</td></tr>
+    <tr><td><code>points_now</code></td><td>Punkty w klasyfikacji dziś (wyścigi + sprinty).</td></tr>
+    <tr><td><code>expected_points</code></td><td>Średnia końcowa liczba punktów w symulacjach.</td></tr>
+    <tr><td><code>points_p10</code> / <code>points_p90</code></td><td>Zakres, w którym kończy 80% symulowanych sezonów.</td></tr>
+    <tr><td><code>p_title</code></td><td>Szansa na tytuł (0–1).</td></tr>
+  </table>
+</section>
+
+<section id="ledger" class="page">
+  <h2>GET /api/ledger</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/api/ledger</code></div>
+    <p>Historia trafności: predykcje zapisane przed wyścigami, każda wersja z weekendu osobno, oceniane po pojawieniu się wyniku. Bez parametrów.</p>
+  </div>
+  <h4>Przykład żądania</h4>
+<pre>GET https://&lt;twoja-domena&gt;/api/ledger</pre>
+  <h4>Odpowiedź — sukces (skrócony przykład)</h4>
+<pre>{
+  "summary": {
+    "races": 1, "podium_hit_rate": 0.667, "grid_podium_hit_rate": 0.667,
+    "winner_hit_rate": 1.0, "podium_brier": 0.041,
+    "by_source": { "expected": { "races": 1, "podium_hit_rate": 0.667, … }, … }
+  },
+  "races": [
+    {
+      "race_id": "2026_16", "race_name": "Bahrain Grand Prix in Malaysia",
+      "recorded_at": "2026-10-04T05:12:40+00:00", "grid_source": "starting_grid",
+      "predicted_podium": ["Andrea Kimi Antonelli", "George Russell", "Lando Norris"],
+      "status": "scored",
+      "actual_podium": ["…", "…", "…"],
+      "podium_hits": 2, "winner_hit": true, "podium_brier": 0.041, "grid_podium_hits": 2,
+      "stages": [
+        { "grid_source": "expected", "recorded_at": "…", "trigger": "auto",
+          "predicted_podium": […], "podium_hits": 2, "winner_hit": false, … }, …
+      ]
+    }
+  ]
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>summary</code></td><td>Tylko ocenione wyścigi: trafione miejsca na podium, to samo dla samej kolejności startowej, trafiony zwycięzca, Brier. <code>by_source</code> — to samo według etapu weekendu.</td></tr>
+    <tr><td><code>races[].status</code></td><td><code>pending</code> — wyścig się nie odbył albo brak wyniku; <code>scored</code> — oceniony.</td></tr>
+    <tr><td><code>predicted_podium</code> / <code>actual_podium</code></td><td>Przewidywane i faktyczne podium.</td></tr>
+    <tr><td><code>podium_hits</code> / <code>grid_podium_hits</code></td><td>Ile z trzech miejsc trafiła predykcja / sama kolejność startowa.</td></tr>
+    <tr><td><code>stages</code></td><td>Każda wersja predykcji z weekendu (przewidywany grid → po treningach → po kwalifikacjach → z karami), każda oceniona osobno.</td></tr>
+  </table>
+  <p class="note">Przykład ocenionego wyścigu jest poglądowy; w chwili pisania dokumentacji pierwszy wyścig w historii jeszcze się nie odbył (<code>status: "pending"</code>).</p>
+</section>
+
+<section id="sync" class="page">
+  <h2>POST /api/sync</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/api/sync</code></div>
+    <p>Pobiera najnowsze wyniki, kwalifikacje, pit stopy, treningi, przebieg wyścigów i statusy toru, przebudowuje cechy i douczy model, jeśli doszedł nowy wyścig. Trwa od kilkunastu sekund do kilku minut. Bez treści.</p>
+  </div>
+  <h4>Przykład żądania</h4>
+<pre>curl -X POST https://&lt;twoja-domena&gt;/api/sync</pre>
+  <h4>Odpowiedź — błędy</h4>
+<pre>403  {"error": "sync runs on a schedule on this server"}
+409  {"error": "a sync is already running"}
+429  {"error": "synced less than a minute ago; try again shortly"}
+500  {"error": "02_build_features.py failed (exit 1); see sync.log"}</pre>
+  <h4>Odpowiedź — sukces</h4>
+<pre>{
+  "success": true,
+  "last_success_utc": "2026-10-01T11:28:34.409850+00:00",
+  "seconds": 353.3,
+  "new_races": 0,
+  "results_through": "2026_15",
+  "retrain": "none",
+  "trained_through": "2026-09-26"
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr>
+    <tr><td><code>new_races</code></td><td>Ile nowych wyścigów z wynikami doszło.</td></tr>
+    <tr><td><code>results_through</code></td><td>Ostatni wyścig z wynikami w danych.</td></tr>
+    <tr><td><code>retrain</code></td><td><code>none</code> — model bez zmian, <code>quick</code> — douczony na nowych danych, <code>full</code> — douczony z pełną walidacją.</td></tr>
+    <tr><td><code>trained_through</code></td><td>Data ostatniego wyścigu w danych treningowych.</td></tr>
+  </table>
+  <p class="note">Aplikacja uruchamia tę samą synchronizację sama co 15 minut, gdy jest potrzebna (patrz README). W Dockerze robi to osobny kontener <code>sync</code>, a endpoint jest wyłączony.</p>
+</section>
+
+</main>
+</body>
+</html>

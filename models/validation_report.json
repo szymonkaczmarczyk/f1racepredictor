@@ -1,0 +1,875 @@
+{
+ "validation": [
+  {
+   "season": 2014,
+   "train_races": 316,
+   "roc_auc": 0.9197418834442428,
+   "log_loss": 0.2369976599774751,
+   "brier": 0.07239895216049383,
+   "races": 19,
+   "podium_hit_rate": 0.6140350877192983,
+   "exact_podium_rate": 0.2631578947368421,
+   "winner_top1_rate": 0.47368421052631576,
+   "win_brier": 0.03291878240740741,
+   "win_log_loss": 0.11190827516071085,
+   "points_brier": 0.14357558456790123,
+   "points_log_loss": 0.44050873406837815,
+   "baseline_podium_hit_rate": 0.631578947368421,
+   "baseline_exact_podium_rate": 0.2631578947368421,
+   "baseline_winner_top1_rate": 0.47368421052631576,
+   "lift_vs_grid": -0.01754385964912275,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2015,
+   "train_races": 335,
+   "roc_auc": 0.9498510427010923,
+   "log_loss": 0.1962015748169599,
+   "brier": 0.05721432166666666,
+   "races": 19,
+   "podium_hit_rate": 0.7543859649122807,
+   "exact_podium_rate": 0.3684210526315789,
+   "winner_top1_rate": 0.6842105263157895,
+   "win_brier": 0.024957643333333338,
+   "win_log_loss": 0.07982660618247181,
+   "points_brier": 0.16545016033333335,
+   "points_log_loss": 0.49468261394753815,
+   "baseline_podium_hit_rate": 0.7543859649122807,
+   "baseline_exact_podium_rate": 0.3684210526315789,
+   "baseline_winner_top1_rate": 0.631578947368421,
+   "lift_vs_grid": 0.0,
+   "winner_lift_vs_pole": 0.052631578947368474
+  },
+  {
+   "season": 2016,
+   "train_races": 354,
+   "roc_auc": 0.9543200991563712,
+   "log_loss": 0.18812695346097527,
+   "brier": 0.05745254130434782,
+   "races": 21,
+   "podium_hit_rate": 0.7301587301587301,
+   "exact_podium_rate": 0.38095238095238093,
+   "winner_top1_rate": 0.6190476190476191,
+   "win_brier": 0.024479579619565216,
+   "win_log_loss": 0.08137069361085575,
+   "points_brier": 0.12836198070652172,
+   "points_log_loss": 0.4104330085363258,
+   "baseline_podium_hit_rate": 0.6984126984126984,
+   "baseline_exact_podium_rate": 0.3333333333333333,
+   "baseline_winner_top1_rate": 0.6190476190476191,
+   "lift_vs_grid": 0.031746031746031744,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2017,
+   "train_races": 375,
+   "roc_auc": 0.9522794117647059,
+   "log_loss": 0.193938960883328,
+   "brier": 0.05874587312500001,
+   "races": 20,
+   "podium_hit_rate": 0.7166666666666667,
+   "exact_podium_rate": 0.35,
+   "winner_top1_rate": 0.6,
+   "win_brier": 0.030664807500000002,
+   "win_log_loss": 0.10424865871473164,
+   "points_brier": 0.16256529968749997,
+   "points_log_loss": 0.4966697797266852,
+   "baseline_podium_hit_rate": 0.7166666666666667,
+   "baseline_exact_podium_rate": 0.35,
+   "baseline_winner_top1_rate": 0.55,
+   "lift_vs_grid": 0.0,
+   "winner_lift_vs_pole": 0.04999999999999993
+  },
+  {
+   "season": 2018,
+   "train_races": 395,
+   "roc_auc": 0.9462229336178914,
+   "log_loss": 0.21108129068559658,
+   "brier": 0.06691466041666666,
+   "races": 21,
+   "podium_hit_rate": 0.6984126984126984,
+   "exact_podium_rate": 0.3333333333333333,
+   "winner_top1_rate": 0.38095238095238093,
+   "win_brier": 0.035997297619047616,
+   "win_log_loss": 0.11808479083468446,
+   "points_brier": 0.1718610619047619,
+   "points_log_loss": 0.5342898899845235,
+   "baseline_podium_hit_rate": 0.6984126984126984,
+   "baseline_exact_podium_rate": 0.3333333333333333,
+   "baseline_winner_top1_rate": 0.47619047619047616,
+   "lift_vs_grid": 0.0,
+   "winner_lift_vs_pole": -0.09523809523809523
+  },
+  {
+   "season": 2019,
+   "train_races": 416,
+   "roc_auc": 0.9413233458177279,
+   "log_loss": 0.20477123500323943,
+   "brier": 0.06140961575178998,
+   "races": 21,
+   "podium_hit_rate": 0.746031746031746,
+   "exact_podium_rate": 0.38095238095238093,
+   "winner_top1_rate": 0.42857142857142855,
+   "win_brier": 0.034047262529832936,
+   "win_log_loss": 0.10547718671536126,
+   "points_brier": 0.17639359099045346,
+   "points_log_loss": 0.5265356511932002,
+   "baseline_podium_hit_rate": 0.7619047619047619,
+   "baseline_exact_podium_rate": 0.38095238095238093,
+   "baseline_winner_top1_rate": 0.38095238095238093,
+   "lift_vs_grid": -0.015873015873015817,
+   "winner_lift_vs_pole": 0.047619047619047616
+  },
+  {
+   "season": 2020,
+   "train_races": 437,
+   "roc_auc": 0.9257557189542484,
+   "log_loss": 0.23136877185133756,
+   "brier": 0.06897302802359884,
+   "races": 17,
+   "podium_hit_rate": 0.7254901960784313,
+   "exact_podium_rate": 0.47058823529411764,
+   "winner_top1_rate": 0.5882352941176471,
+   "win_brier": 0.030185594395280235,
+   "win_log_loss": 0.11797144021235023,
+   "points_brier": 0.16367805235988203,
+   "points_log_loss": 0.4967038459761096,
+   "baseline_podium_hit_rate": 0.6862745098039216,
+   "baseline_exact_podium_rate": 0.29411764705882354,
+   "baseline_winner_top1_rate": 0.5882352941176471,
+   "lift_vs_grid": 0.039215686274509776,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2021,
+   "train_races": 454,
+   "roc_auc": 0.9369227029654836,
+   "log_loss": 0.2202761421445034,
+   "brier": 0.06695580085227272,
+   "races": 22,
+   "podium_hit_rate": 0.6818181818181818,
+   "exact_podium_rate": 0.2727272727272727,
+   "winner_top1_rate": 0.5454545454545454,
+   "win_brier": 0.03294964034090909,
+   "win_log_loss": 0.11361717321070508,
+   "points_brier": 0.15313028494318182,
+   "points_log_loss": 0.47092042216445856,
+   "baseline_podium_hit_rate": 0.696969696969697,
+   "baseline_exact_podium_rate": 0.3181818181818182,
+   "baseline_winner_top1_rate": 0.5,
+   "lift_vs_grid": -0.015151515151515249,
+   "winner_lift_vs_pole": 0.045454545454545414
+  },
+  {
+   "season": 2022,
+   "train_races": 476,
+   "roc_auc": 0.9453448696076043,
+   "log_loss": 0.21293063690813874,
+   "brier": 0.06970804356492029,
+   "races": 22,
+   "podium_hit_rate": 0.6515151515151515,
+   "exact_podium_rate": 0.13636363636363635,
+   "winner_top1_rate": 0.45454545454545453,
+   "win_brier": 0.0376301312642369,
+   "win_log_loss": 0.11931526553381322,
+   "points_brier": 0.16369028530751709,
+   "points_log_loss": 0.5012285063019766,
+   "baseline_podium_hit_rate": 0.6363636363636364,
+   "baseline_exact_podium_rate": 0.09090909090909091,
+   "baseline_winner_top1_rate": 0.45454545454545453,
+   "lift_vs_grid": 0.015151515151515138,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2023,
+   "train_races": 498,
+   "roc_auc": 0.9136119257087,
+   "log_loss": 0.2450598087932449,
+   "brier": 0.07371460331050228,
+   "races": 22,
+   "podium_hit_rate": 0.6515151515151515,
+   "exact_podium_rate": 0.18181818181818182,
+   "winner_top1_rate": 0.7272727272727273,
+   "win_brier": 0.02133452283105023,
+   "win_log_loss": 0.07663312763336624,
+   "points_brier": 0.15346104280821918,
+   "points_log_loss": 0.47186139893121876,
+   "baseline_podium_hit_rate": 0.6363636363636364,
+   "baseline_exact_podium_rate": 0.18181818181818182,
+   "baseline_winner_top1_rate": 0.6363636363636364,
+   "lift_vs_grid": 0.015151515151515138,
+   "winner_lift_vs_pole": 0.09090909090909094
+  },
+  {
+   "season": 2024,
+   "train_races": 520,
+   "roc_auc": 0.9381654381654383,
+   "log_loss": 0.2246075625366071,
+   "brier": 0.07020622938413361,
+   "races": 24,
+   "podium_hit_rate": 0.6805555555555556,
+   "exact_podium_rate": 0.20833333333333334,
+   "winner_top1_rate": 0.4583333333333333,
+   "win_brier": 0.03556582228601252,
+   "win_log_loss": 0.12432689955669736,
+   "points_brier": 0.1231719556367432,
+   "points_log_loss": 0.40247018565001486,
+   "baseline_podium_hit_rate": 0.6666666666666666,
+   "baseline_exact_podium_rate": 0.20833333333333334,
+   "baseline_winner_top1_rate": 0.4583333333333333,
+   "lift_vs_grid": 0.01388888888888895,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2025,
+   "train_races": 544,
+   "roc_auc": 0.9451440076440076,
+   "log_loss": 0.19727671360968313,
+   "brier": 0.05793734890396661,
+   "races": 24,
+   "podium_hit_rate": 0.75,
+   "exact_podium_rate": 0.3333333333333333,
+   "winner_top1_rate": 0.6666666666666666,
+   "win_brier": 0.026388467901878914,
+   "win_log_loss": 0.08648562769257488,
+   "points_brier": 0.15940040892484342,
+   "points_log_loss": 0.49445263290919794,
+   "baseline_podium_hit_rate": 0.75,
+   "baseline_exact_podium_rate": 0.3333333333333333,
+   "baseline_winner_top1_rate": 0.6666666666666666,
+   "lift_vs_grid": 0.0,
+   "winner_lift_vs_pole": 0.0
+  },
+  {
+   "season": 2026,
+   "train_races": 568,
+   "roc_auc": 0.9390643274853802,
+   "log_loss": 0.2081568860821721,
+   "brier": 0.06793121022727272,
+   "races": 15,
+   "podium_hit_rate": 0.6444444444444445,
+   "exact_podium_rate": 0.26666666666666666,
+   "winner_top1_rate": 0.6666666666666666,
+   "win_brier": 0.02214276325757576,
+   "win_log_loss": 0.0786025667129337,
+   "points_brier": 0.16030973977272728,
+   "points_log_loss": 0.4932906189925238,
+   "baseline_podium_hit_rate": 0.6,
+   "baseline_exact_podium_rate": 0.2,
+   "baseline_winner_top1_rate": 0.6666666666666666,
+   "lift_vs_grid": 0.04444444444444451,
+   "winner_lift_vs_pole": 0.0
+  }
+ ],
+ "summary": {
+  "season": 2020.0,
+  "train_races": 437.53846153846155,
+  "roc_auc": 0.939057515925607,
+  "log_loss": 0.21313801513486624,
+  "brier": 0.06535094066858707,
+  "races": 20.53846153846154,
+  "podium_hit_rate": 0.6957715057560259,
+  "exact_podium_rate": 0.30358828478023525,
+  "winner_top1_rate": 0.5610492964208135,
+  "win_brier": 0.029943255022010014,
+  "win_log_loss": 0.10137448552086589,
+  "points_brier": 0.15577303445719892,
+  "points_log_loss": 0.4795420991063193,
+  "baseline_podium_hit_rate": 0.6872307602957757,
+  "baseline_exact_podium_rate": 0.28122241535554227,
+  "baseline_winner_top1_rate": 0.5463280527522014,
+  "lift_vs_grid": 0.008540745460250111,
+  "winner_lift_vs_pole": 0.014721243668612088
+ },
+ "importance": [
+  {
+   "feature": "grid_norm",
+   "importance": 0.008701754385964966,
+   "std": 0.005881975108750838
+  },
+  {
+   "feature": "cars_ahead_faster",
+   "importance": 0.008233918128655038,
+   "std": 0.007353880679105666
+  },
+  {
+   "feature": "quali_gap_pct",
+   "importance": 0.004912280701754446,
+   "std": 0.0022257077415278616
+  },
+  {
+   "feature": "team_season_rank",
+   "importance": 0.003961013645224232,
+   "std": 0.0013436668524624074
+  },
+  {
+   "feature": "grid",
+   "importance": 0.003929824561403561,
+   "std": 0.003237360795878672
+  },
+  {
+   "feature": "quali_position",
+   "importance": 0.0029161793372320054,
+   "std": 0.0028129026459906507
+  },
+  {
+   "feature": "drv_form_quali_gap",
+   "importance": 0.0027914230019493447,
+   "std": 0.0008757970265636396
+  },
+  {
+   "feature": "drv_track_gain",
+   "importance": 0.002588693957115096,
+   "std": 0.0016051018902058251
+  },
+  {
+   "feature": "quali_gap_to_best_rival",
+   "importance": 0.002557504873294403,
+   "std": 0.0015760520225338076
+  },
+  {
+   "feature": "drv_form_pos",
+   "importance": 0.002526315789473732,
+   "std": 0.0021425334263510893
+  },
+  {
+   "feature": "team_form_quali_gap",
+   "importance": 0.0025107212475633744,
+   "std": 0.0024014581887968687
+  },
+  {
+   "feature": "team_form_pos",
+   "importance": 0.0025107212475633744,
+   "std": 0.0028158405846148123
+  },
+  {
+   "feature": "fp_longrun_gap_pct",
+   "importance": 0.002370370370370423,
+   "std": 0.0008304734163396274
+  },
+  {
+   "feature": "drv_wet_podium_rate",
+   "importance": 0.0021676413255360847,
+   "std": 0.0019906113586239923
+  },
+  {
+   "feature": "team_best_grid",
+   "importance": 0.0017309941520468497,
+   "std": 0.0021745301225485664
+  },
+  {
+   "feature": "grid_win_prior",
+   "importance": 0.001668615984405508,
+   "std": 0.001134871291924224
+  },
+  {
+   "feature": "team_form_dnf_rate",
+   "importance": 0.0015126705653021987,
+   "std": 0.002084425064199889
+  },
+  {
+   "feature": "fp_longrun_rank",
+   "importance": 0.0013723196881092249,
+   "std": 0.0007601439442934149
+  },
+  {
+   "feature": "team_form_points_rate",
+   "importance": 0.0013411306042885763,
+   "std": 0.0008272459858011926
+  },
+  {
+   "feature": "drv_track_vs_form",
+   "importance": 0.0012007797270955356,
+   "std": 0.0008829871449133562
+  },
+  {
+   "feature": "circuit_distance_km",
+   "importance": 0.0008888888888889835,
+   "std": 0.0007712600713530519
+  },
+  {
+   "feature": "drv_beat_teammate_rate",
+   "importance": 0.0008421052631579995,
+   "std": 0.000573828288279869
+  },
+  {
+   "feature": "drv_form_pos_norm",
+   "importance": 0.0008421052631579551,
+   "std": 0.00012475633528263587
+  },
+  {
+   "feature": "field_pace_spread",
+   "importance": 0.0007797270955166135,
+   "std": 0.0004931427150360046
+  },
+  {
+   "feature": "drv_quali_vs_teammate",
+   "importance": 0.0007641325536062559,
+   "std": 0.000285000653138413
+  },
+  {
+   "feature": "drv_form_grid",
+   "importance": 0.0007329434697856297,
+   "std": 0.0016037377162956546
+  },
+  {
+   "feature": "cars_ahead_slower",
+   "importance": 0.0006081871345029466,
+   "std": 0.0003864175187013798
+  },
+  {
+   "feature": "fp_best_rank",
+   "importance": 0.0005769980506823424,
+   "std": 0.002076242106554468
+  },
+  {
+   "feature": "grid_minus_pace_rank",
+   "importance": 0.0005614035087720293,
+   "std": 0.0007101939983928874
+  },
+  {
+   "feature": "circuit_dnf_rate",
+   "importance": 0.0005614035087720071,
+   "std": 0.0005455861422077685
+  }
+ ],
+ "calibration": {
+  "podium": [
+   {
+    "bin": "(-0.001, 0.02]",
+    "predicted": 0.0087,
+    "observed": 0.0029,
+    "n": 2736
+   },
+   {
+    "bin": "(0.02, 0.05]",
+    "predicted": 0.0318,
+    "observed": 0.0397,
+    "n": 781
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "predicted": 0.0701,
+    "observed": 0.0776,
+    "n": 361
+   },
+   {
+    "bin": "(0.1, 0.2]",
+    "predicted": 0.1465,
+    "observed": 0.1693,
+    "n": 378
+   },
+   {
+    "bin": "(0.2, 0.35]",
+    "predicted": 0.2673,
+    "observed": 0.2731,
+    "n": 271
+   },
+   {
+    "bin": "(0.35, 0.5]",
+    "predicted": 0.4194,
+    "observed": 0.4576,
+    "n": 177
+   },
+   {
+    "bin": "(0.5, 0.7]",
+    "predicted": 0.6031,
+    "observed": 0.6259,
+    "n": 294
+   },
+   {
+    "bin": "(0.7, 1.0]",
+    "predicted": 0.8183,
+    "observed": 0.7788,
+    "n": 425
+   }
+  ],
+  "win": [
+   {
+    "bin": "(-0.001, 0.02]",
+    "predicted": 0.0036,
+    "observed": 0.0028,
+    "n": 4293
+   },
+   {
+    "bin": "(0.02, 0.05]",
+    "predicted": 0.032,
+    "observed": 0.0557,
+    "n": 341
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "predicted": 0.0713,
+    "observed": 0.0984,
+    "n": 193
+   },
+   {
+    "bin": "(0.1, 0.2]",
+    "predicted": 0.1444,
+    "observed": 0.1656,
+    "n": 151
+   },
+   {
+    "bin": "(0.2, 0.35]",
+    "predicted": 0.2746,
+    "observed": 0.2348,
+    "n": 132
+   },
+   {
+    "bin": "(0.35, 0.5]",
+    "predicted": 0.4307,
+    "observed": 0.3409,
+    "n": 132
+   },
+   {
+    "bin": "(0.5, 0.7]",
+    "predicted": 0.5876,
+    "observed": 0.6438,
+    "n": 146
+   },
+   {
+    "bin": "(0.7, 1.0]",
+    "predicted": 0.7503,
+    "observed": 0.6286,
+    "n": 35
+   }
+  ],
+  "points_finish": [
+   {
+    "bin": "(-0.001, 0.02]",
+    "predicted": 0.0136,
+    "observed": 0.0291,
+    "n": 172
+   },
+   {
+    "bin": "(0.02, 0.05]",
+    "predicted": 0.0336,
+    "observed": 0.0422,
+    "n": 427
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "predicted": 0.0737,
+    "observed": 0.0957,
+    "n": 418
+   },
+   {
+    "bin": "(0.1, 0.2]",
+    "predicted": 0.1471,
+    "observed": 0.1996,
+    "n": 551
+   },
+   {
+    "bin": "(0.2, 0.35]",
+    "predicted": 0.2723,
+    "observed": 0.2486,
+    "n": 551
+   },
+   {
+    "bin": "(0.35, 0.5]",
+    "predicted": 0.428,
+    "observed": 0.4368,
+    "n": 506
+   },
+   {
+    "bin": "(0.5, 0.7]",
+    "predicted": 0.6074,
+    "observed": 0.5964,
+    "n": 788
+   },
+   {
+    "bin": "(0.7, 1.0]",
+    "predicted": 0.8439,
+    "observed": 0.8303,
+    "n": 2010
+   }
+  ]
+ },
+ "trained_through": "2026-09-26",
+ "validated_through": "2026-09-26",
+ "current_season": 2026,
+ "prequali": {
+  "validation": [
+   {
+    "season": 2014,
+    "train_races": 316,
+    "roc_auc": 0.9048699334543254,
+    "log_loss": 0.2549677570702268,
+    "brier": 0.08015183796296296,
+    "races": 19,
+    "podium_hit_rate": 0.6140350877192983,
+    "exact_podium_rate": 0.10526315789473684,
+    "winner_top1_rate": 0.42105263157894735,
+    "win_brier": 0.03498109691358024,
+    "win_log_loss": 0.11440375263921272,
+    "points_brier": 0.15135472067901234,
+    "points_log_loss": 0.4631533809105825,
+    "baseline_podium_hit_rate": 0.631578947368421,
+    "baseline_exact_podium_rate": 0.15789473684210525,
+    "baseline_winner_top1_rate": 0.3157894736842105,
+    "lift_vs_grid": -0.01754385964912275,
+    "winner_lift_vs_pole": 0.10526315789473684
+   },
+   {
+    "season": 2015,
+    "train_races": 335,
+    "roc_auc": 0.9254661811762109,
+    "log_loss": 0.22935238237644118,
+    "brier": 0.067307686,
+    "races": 19,
+    "podium_hit_rate": 0.7192982456140351,
+    "exact_podium_rate": 0.3684210526315789,
+    "winner_top1_rate": 0.47368421052631576,
+    "win_brier": 0.03256686166666667,
+    "win_log_loss": 0.11203918128655622,
+    "points_brier": 0.18926905800000002,
+    "points_log_loss": 0.5562120580313834,
+    "baseline_podium_hit_rate": 0.7192982456140351,
+    "baseline_exact_podium_rate": 0.3684210526315789,
+    "baseline_winner_top1_rate": 0.5789473684210527,
+    "lift_vs_grid": 0.0,
+    "winner_lift_vs_pole": -0.10526315789473689
+   },
+   {
+    "season": 2016,
+    "train_races": 354,
+    "roc_auc": 0.9385470393027069,
+    "log_loss": 0.20763523760593658,
+    "brier": 0.0627325820652174,
+    "races": 21,
+    "podium_hit_rate": 0.6031746031746031,
+    "exact_podium_rate": 0.09523809523809523,
+    "winner_top1_rate": 0.5714285714285714,
+    "win_brier": 0.030362953260869564,
+    "win_log_loss": 0.10458677697522403,
+    "points_brier": 0.14280693288043478,
+    "points_log_loss": 0.4451142534040614,
+    "baseline_podium_hit_rate": 0.6190476190476191,
+    "baseline_exact_podium_rate": 0.14285714285714285,
+    "baseline_winner_top1_rate": 0.5714285714285714,
+    "lift_vs_grid": -0.015873015873015928,
+    "winner_lift_vs_pole": 0.0
+   },
+   {
+    "season": 2017,
+    "train_races": 375,
+    "roc_auc": 0.9276960784313726,
+    "log_loss": 0.23413690218911865,
+    "brier": 0.07470072500000001,
+    "races": 20,
+    "podium_hit_rate": 0.6333333333333333,
+    "exact_podium_rate": 0.15,
+    "winner_top1_rate": 0.35,
+    "win_brier": 0.0394808703125,
+    "win_log_loss": 0.1393201438162624,
+    "points_brier": 0.17445521,
+    "points_log_loss": 0.5233615026060672,
+    "baseline_podium_hit_rate": 0.6166666666666667,
+    "baseline_exact_podium_rate": 0.15,
+    "baseline_winner_top1_rate": 0.35,
+    "lift_vs_grid": 0.016666666666666607,
+    "winner_lift_vs_pole": 0.0
+   },
+   {
+    "season": 2018,
+    "train_races": 395,
+    "roc_auc": 0.9277933395580454,
+    "log_loss": 0.22935580927521662,
+    "brier": 0.07818914910714286,
+    "races": 21,
+    "podium_hit_rate": 0.5873015873015873,
+    "exact_podium_rate": 0.09523809523809523,
+    "winner_top1_rate": 0.19047619047619047,
+    "win_brier": 0.04125239821428572,
+    "win_log_loss": 0.1446589807306042,
+    "points_brier": 0.19481939761904765,
+    "points_log_loss": 0.5851788975062169,
+    "baseline_podium_hit_rate": 0.5555555555555556,
+    "baseline_exact_podium_rate": 0.047619047619047616,
+    "baseline_winner_top1_rate": 0.3333333333333333,
+    "lift_vs_grid": 0.031746031746031744,
+    "winner_lift_vs_pole": -0.14285714285714285
+   },
+   {
+    "season": 2019,
+    "train_races": 416,
+    "roc_auc": 0.9139691457107187,
+    "log_loss": 0.23575112846801327,
+    "brier": 0.0749697762529833,
+    "races": 21,
+    "podium_hit_rate": 0.6349206349206349,
+    "exact_podium_rate": 0.14285714285714285,
+    "winner_top1_rate": 0.3333333333333333,
+    "win_brier": 0.042197477028639616,
+    "win_log_loss": 0.14611656610112408,
+    "points_brier": 0.17863932517899758,
+    "points_log_loss": 0.5314118671497062,
+    "baseline_podium_hit_rate": 0.6349206349206349,
+    "baseline_exact_podium_rate": 0.19047619047619047,
+    "baseline_winner_top1_rate": 0.19047619047619047,
+    "lift_vs_grid": 0.0,
+    "winner_lift_vs_pole": 0.14285714285714285
+   },
+   {
+    "season": 2020,
+    "train_races": 437,
+    "roc_auc": 0.9043096405228758,
+    "log_loss": 0.2512723116188945,
+    "brier": 0.07510880014749262,
+    "races": 17,
+    "podium_hit_rate": 0.7058823529411765,
+    "exact_podium_rate": 0.47058823529411764,
+    "winner_top1_rate": 0.47058823529411764,
+    "win_brier": 0.0340946139380531,
+    "win_log_loss": 0.11854827814439989,
+    "points_brier": 0.16854051069321532,
+    "points_log_loss": 0.5053412543530318,
+    "baseline_podium_hit_rate": 0.7058823529411765,
+    "baseline_exact_podium_rate": 0.47058823529411764,
+    "baseline_winner_top1_rate": 0.47058823529411764,
+    "lift_vs_grid": 0.0,
+    "winner_lift_vs_pole": 0.0
+   },
+   {
+    "season": 2021,
+    "train_races": 454,
+    "roc_auc": 0.895276292335116,
+    "log_loss": 0.2566218317463814,
+    "brier": 0.07410926789772727,
+    "races": 22,
+    "podium_hit_rate": 0.6666666666666666,
+    "exact_podium_rate": 0.2727272727272727,
+    "winner_top1_rate": 0.4090909090909091,
+    "win_brier": 0.03658287982954545,
+    "win_log_loss": 0.12994292017441844,
+    "points_brier": 0.17270510795454544,
+    "points_log_loss": 0.5178460936610234,
+    "baseline_podium_hit_rate": 0.6818181818181818,
+    "baseline_exact_podium_rate": 0.2727272727272727,
+    "baseline_winner_top1_rate": 0.2727272727272727,
+    "lift_vs_grid": -0.015151515151515138,
+    "winner_lift_vs_pole": 0.1363636363636364
+   },
+   {
+    "season": 2022,
+    "train_races": 476,
+    "roc_auc": 0.918108700950524,
+    "log_loss": 0.25142107507514216,
+    "brier": 0.08248693564920273,
+    "races": 22,
+    "podium_hit_rate": 0.5303030303030303,
+    "exact_podium_rate": 0.045454545454545456,
+    "winner_top1_rate": 0.5,
+    "win_brier": 0.040009863325740316,
+    "win_log_loss": 0.13769497241499193,
+    "points_brier": 0.180742771070615,
+    "points_log_loss": 0.5471033219868542,
+    "baseline_podium_hit_rate": 0.5151515151515151,
+    "baseline_exact_podium_rate": 0.045454545454545456,
+    "baseline_winner_top1_rate": 0.2727272727272727,
+    "lift_vs_grid": 0.015151515151515138,
+    "winner_lift_vs_pole": 0.2272727272727273
+   },
+   {
+    "season": 2023,
+    "train_races": 498,
+    "roc_auc": 0.8643695014662757,
+    "log_loss": 0.30279217400346375,
+    "brier": 0.09531282905251141,
+    "races": 22,
+    "podium_hit_rate": 0.5,
+    "exact_podium_rate": 0.09090909090909091,
+    "winner_top1_rate": 0.8636363636363636,
+    "win_brier": 0.024845292237442924,
+    "win_log_loss": 0.0877626142188032,
+    "points_brier": 0.1599660924657534,
+    "points_log_loss": 0.49341606138564387,
+    "baseline_podium_hit_rate": 0.48484848484848486,
+    "baseline_exact_podium_rate": 0.045454545454545456,
+    "baseline_winner_top1_rate": 0.5909090909090909,
+    "lift_vs_grid": 0.015151515151515138,
+    "winner_lift_vs_pole": 0.2727272727272727
+   },
+   {
+    "season": 2024,
+    "train_races": 520,
+    "roc_auc": 0.8913117663117663,
+    "log_loss": 0.27642161201050935,
+    "brier": 0.08883672755741126,
+    "races": 24,
+    "podium_hit_rate": 0.5277777777777778,
+    "exact_podium_rate": 0.08333333333333333,
+    "winner_top1_rate": 0.4166666666666667,
+    "win_brier": 0.04064556184759916,
+    "win_log_loss": 0.1468338627370692,
+    "points_brier": 0.15401593032359084,
+    "points_log_loss": 0.4765215873508645,
+    "baseline_podium_hit_rate": 0.5277777777777778,
+    "baseline_exact_podium_rate": 0.041666666666666664,
+    "baseline_winner_top1_rate": 0.20833333333333334,
+    "lift_vs_grid": 0.0,
+    "winner_lift_vs_pole": 0.20833333333333334
+   },
+   {
+    "season": 2025,
+    "train_races": 544,
+    "roc_auc": 0.9181169806169808,
+    "log_loss": 0.24237995828903655,
+    "brier": 0.07571268084551148,
+    "races": 24,
+    "podium_hit_rate": 0.6388888888888888,
+    "exact_podium_rate": 0.25,
+    "winner_top1_rate": 0.3333333333333333,
+    "win_brier": 0.04052715553235909,
+    "win_log_loss": 0.13119528120478507,
+    "points_brier": 0.17735220720250522,
+    "points_log_loss": 0.5302707082727344,
+    "baseline_podium_hit_rate": 0.5555555555555556,
+    "baseline_exact_podium_rate": 0.125,
+    "baseline_winner_top1_rate": 0.25,
+    "lift_vs_grid": 0.08333333333333326,
+    "winner_lift_vs_pole": 0.08333333333333331
+   },
+   {
+    "season": 2026,
+    "train_races": 568,
+    "roc_auc": 0.8853801169590644,
+    "log_loss": 0.26854565847371176,
+    "brier": 0.09081583939393938,
+    "races": 15,
+    "podium_hit_rate": 0.4444444444444444,
+    "exact_podium_rate": 0.06666666666666667,
+    "winner_top1_rate": 0.13333333333333333,
+    "win_brier": 0.03698334962121212,
+    "win_log_loss": 0.1229039835529267,
+    "points_brier": 0.16610106818181822,
+    "points_log_loss": 0.5063584498423482,
+    "baseline_podium_hit_rate": 0.4,
+    "baseline_exact_podium_rate": 0.06666666666666667,
+    "baseline_winner_top1_rate": 0.26666666666666666,
+    "lift_vs_grid": 0.0444444444444444,
+    "winner_lift_vs_pole": -0.13333333333333333
+   }
+  ],
+  "summary": {
+   "season": 2020.0,
+   "train_races": 437.53846153846155,
+   "roc_auc": 0.9088626705227679,
+   "log_loss": 0.24928106447708404,
+   "brier": 0.07849498745631558,
+   "races": 20.53846153846154,
+   "podium_hit_rate": 0.6004635886988828,
+   "exact_podium_rate": 0.1720535914034366,
+   "winner_top1_rate": 0.420509521438314,
+   "win_brier": 0.03650233644065338,
+   "win_log_loss": 0.12584671646125983,
+   "points_brier": 0.17005910248073355,
+   "points_log_loss": 0.5139453412661937,
+   "baseline_podium_hit_rate": 0.5883155028665864,
+   "baseline_exact_podium_rate": 0.16344816174537538,
+   "baseline_winner_top1_rate": 0.3593789853077778,
+   "lift_vs_grid": 0.012148085832296344,
+   "winner_lift_vs_pole": 0.06113053613053613
+  }
+ }
+}

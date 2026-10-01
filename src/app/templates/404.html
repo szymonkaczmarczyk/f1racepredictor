@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block topbar %}<a class="ghost-link" href="{{ '/' if lang == 'en' else '/?lang=' ~ lang }}" data-path="/" data-i18n="nav.back">Back to predictions</a>{% endblock %}
+
+{% block main_class %}page-narrow{% endblock %}
+
+{% block main %}
+  <section class="card notfound" aria-labelledby="notfound-title">
+    <p class="notfound-code" aria-hidden="true">404</p>
+    <h1 id="notfound-title" data-i18n="notfound.title">Off the track</h1>
+    <p class="notfound-text" data-i18n="notfound.text">This page does not exist, or it has been moved. The race is still on, though.</p>
+    <div class="notfound-actions">
+      <a class="button primary" href="{{ '/' if lang == 'en' else '/?lang=' ~ lang }}" data-path="/" data-i18n="notfound.home">Go to the predictions</a>
+      <a class="button ghost" href="{{ '/privacy' if lang == 'en' else '/privacy?lang=' ~ lang }}" data-path="/privacy" data-i18n="footer.privacy">Privacy policy</a>
+    </div>
+  </section>
+{% endblock %}

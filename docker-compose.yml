@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      F1_AUTO_SYNC: "0"
+      F1_SYNC_ENDPOINT: "0"
+      F1_TRUSTED_HOSTS: "${F1_TRUSTED_HOSTS:-127.0.0.1,localhost}"
+      F1_SITE_URL: "${F1_SITE_URL:-https://f1racepredictor.com}"
+      F1_OPERATOR_NAME: "${F1_OPERATOR_NAME:-}"
+      F1_OPERATOR_ADDRESS: "${F1_OPERATOR_ADDRESS:-}"
+      F1_CONTACT_EMAIL: "${F1_CONTACT_EMAIL:-}"
+      F1_GOVERNING_COUNTRY: "${F1_GOVERNING_COUNTRY:-}"
+      F1_HOSTING_PROVIDER: "${F1_HOSTING_PROVIDER:-}"
+      F1_LOG_RETENTION_DAYS: "${F1_LOG_RETENTION_DAYS:-30}"
+      F1_LEGAL_UPDATED: "${F1_LEGAL_UPDATED:-2026-10-01}"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    restart: unless-stopped
+
+  sync:
+    build: .
+    command: ["sh", "-c", "while true; do python scripts/sync.py || true; sleep 900; done"]
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    restart: unless-stopped

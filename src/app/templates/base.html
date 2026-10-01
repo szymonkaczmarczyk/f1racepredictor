@@ -1,0 +1,129 @@
+{% set home_href = "/" if lang == "en" else "/?lang=" ~ lang %}
+{% set privacy_href = "/privacy" if lang == "en" else "/privacy?lang=" ~ lang %}
+{% set terms_href = "/terms" if lang == "en" else "/terms?lang=" ~ lang %}
+<!doctype html>
+<html lang="{{ lang }}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+{% if canonical %}
+  <link rel="canonical" href="{{ canonical }}">
+{% for code, href in alternates %}
+  <link rel="alternate" hreflang="{{ code }}" href="{{ href }}">
+{% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ x_default }}">
+{% else %}
+  <meta name="robots" content="noindex">
+{% endif %}
+  <meta name="theme-color" content="#15151e">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site_name }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+{% if canonical %}
+  <meta property="og:url" content="{{ canonical }}">
+{% endif %}
+  <meta property="og:image" content="{{ og_image }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ og_image_alt }}">
+  <meta property="og:locale" content="{{ og_locale }}">
+{% for locale in og_alternates %}
+  <meta property="og:locale:alternate" content="{{ locale }}">
+{% endfor %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ og_image }}">
+  <meta name="twitter:image:alt" content="{{ og_image_alt }}">
+  <link rel="preload" href="{{ url_for('static', filename='fonts/titillium-web-regular.woff') }}" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='fonts/titillium-web-bold.woff') }}" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='brand/favicon.ico') }}" sizes="48x48">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='brand/favicon.svg') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='brand/apple-touch-icon.png') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+{% if structured_data %}
+  <script type="application/ld+json">{{ structured_data|safe }}</script>
+{% endif %}
+  <script>
+    try {
+      const saved = localStorage.getItem("theme");
+      document.documentElement.dataset.theme = saved === "light" ? "light" : "dark";
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body class="page-{{ page }}" data-page="{{ page }}" data-page-lang="{{ lang }}">
+<a class="skip-link" href="#main" data-i18n="nav.skip">Skip to content</a>
+<header class="topbar">
+  <div class="brand">
+    <a class="brand-logo-link" href="{{ home_href }}" data-path="/" tabindex="-1" aria-hidden="true">
+      <img class="brand-logo for-dark" src="{{ url_for('static', filename='brand/logo-mark-dark.png') }}" alt="Race Predictor logo: a Formula 1 car" width="60" height="40">
+      <img class="brand-logo for-light" src="{{ url_for('static', filename='brand/logo-mark-light.png') }}" alt="Race Predictor logo: a Formula 1 car" width="60" height="40">
+    </a>
+    <div class="brand-text">
+{% if page == "home" %}
+      <h1 class="brand-title"><a href="{{ home_href }}" data-path="/"><b>Race</b> <span>Predictor</span></a></h1>
+{% else %}
+      <a class="brand-title" href="{{ home_href }}" data-path="/"><b>Race</b> <span>Predictor</span></a>
+{% endif %}
+      {% block brand_sub %}{% endblock %}
+    </div>
+  </div>
+  <div class="topbar-right">
+    {% block topbar %}{% endblock %}
+    <select id="lang-select" class="lang-select" data-i18n-title="btn.lang" title="Language" aria-label="Language"></select>
+    <button class="icon" id="btn-theme" type="button" data-i18n-title="btn.theme" title="Switch theme" aria-label="Switch theme">
+      <svg class="to-dark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6A8.5 8.5 0 0 1 9.4 3.3 8.5 8.5 0 1 0 20.7 14.6Z"/></svg>
+      <svg class="to-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="{% block main_class %}{% endblock %}" tabindex="-1">
+{% block main %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo for-dark" src="{{ url_for('static', filename='brand/logo-mark-dark.png') }}" alt="Race Predictor logo" width="48" height="32" loading="lazy">
+      <img class="footer-logo for-light" src="{{ url_for('static', filename='brand/logo-mark-light.png') }}" alt="Race Predictor logo" width="48" height="32" loading="lazy">
+      <div>
+        <strong>Race Predictor</strong>
+        <p data-i18n="footer.tagline">Formula 1 podium predictions from 30 years of race data.</p>
+      </div>
+    </div>
+    <nav class="footer-links" data-i18n-title="footer.nav" aria-label="Footer">
+      <a href="{{ home_href }}" data-path="/" data-i18n="footer.home">Predictions</a>
+      <a href="{{ privacy_href }}" data-path="/privacy" data-i18n="footer.privacy">Privacy policy</a>
+      <a href="{{ terms_href }}" data-path="/terms" data-i18n="footer.terms">Terms of use</a>
+    </nav>
+    <p class="footer-data">
+      <span data-i18n="footer.data">Data:</span>
+      <a href="https://github.com/jolpica/jolpica-f1" rel="noopener" target="_blank">Jolpica-F1</a>,
+      <a href="https://openf1.org" rel="noopener" target="_blank">OpenF1</a>,
+      <a href="https://docs.fastf1.dev" rel="noopener" target="_blank">FastF1</a>,
+      <a href="https://open-meteo.com" rel="noopener" target="_blank">Open-Meteo</a> (<a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener license" target="_blank">CC BY 4.0</a>),
+      <a href="https://github.com/bacinger/f1-circuits" rel="noopener" target="_blank">f1-circuits</a>.
+    </p>
+    <p class="footer-legal">
+      © {{ year }} Race Predictor. <span data-i18n="footer.disclaimer">Not affiliated with Formula 1, the FIA or any team. F1 and Formula 1 are trade marks of Formula One Licensing B.V.</span>
+    </p>
+  </div>
+</footer>
+
+{% block after %}{% endblock %}
+
+<script src="{{ url_for('static', filename='i18n.js') }}"></script>
+{% for code in languages %}<script src="{{ url_for('static', filename='i18n/' ~ code ~ '.js') }}"></script>
+{% endfor %}
+<script src="{{ url_for('static', filename='site.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
