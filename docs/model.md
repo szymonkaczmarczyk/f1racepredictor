@@ -1,6 +1,6 @@
 # Race Predictor — model and data
 
-Technical notes behind the predictions: where the data comes from, every feature, how the model is trained and validated, what was tried and rejected, how the race is simulated, and the honest limits. The project overview, setup and screenshots are in the [README](../README.md) (Polish version: [READMEpl.md](../READMEpl.md)).
+Technical notes behind the predictions: where the data comes from, every feature, how the model is trained and validated, what was tried and rejected, how the race is simulated, and the honest limits. The project overview, setup and screenshots are in the [README](../README.en.md) (Polish version: [README.md](../README.md)).
 
 ---
 
