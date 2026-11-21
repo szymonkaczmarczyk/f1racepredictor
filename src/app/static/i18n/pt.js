@@ -231,6 +231,6 @@ STRINGS.pt = {
   "notfound.title": "Fora da pista",
   "notfound.text": "Esta página não existe ou foi movida. Mas a corrida continua.",
   "notfound.home": "Ir para as previsões",
-  "meta.title": "Race Predictor — previsões de pódio da F1 para cada Grande Prêmio",
+  "meta.title": "Race Predictor - previsões de pódio da F1 para cada Grande Prêmio",
   "meta.race": ({ race }) => `${race}: previsão do pódio · Race Predictor`,
 };

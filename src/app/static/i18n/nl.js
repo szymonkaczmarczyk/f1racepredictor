@@ -231,6 +231,6 @@ STRINGS.nl = {
   "notfound.title": "Van de baan",
   "notfound.text": "Deze pagina bestaat niet of is verplaatst. De race gaat gewoon door.",
   "notfound.home": "Naar de voorspellingen",
-  "meta.title": "Race Predictor — F1-podiumvoorspellingen voor elke Grand Prix",
+  "meta.title": "Race Predictor - F1-podiumvoorspellingen voor elke Grand Prix",
   "meta.race": ({ race }) => `${race}: podiumvoorspelling · Race Predictor`,
 };

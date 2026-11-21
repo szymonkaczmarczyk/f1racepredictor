@@ -72,7 +72,7 @@ function applyStaticText() {
 }
 
 function pctText(v, digits = 0) {
-  return v == null ? "—" : `${(v * 100).toFixed(digits)}%`;
+  return v == null ? "-" : `${(v * 100).toFixed(digits)}%`;
 }
 
 function signedNum(v) {

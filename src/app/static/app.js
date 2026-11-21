@@ -153,7 +153,7 @@ async function buildTrackSelect(nextRace) {
     for (const track of items) {
       const o = document.createElement("option");
       o.value = track.circuit_id;
-      o.textContent = track.country && track.country !== track.name ? `${track.country} — ${track.name}` : track.name;
+      o.textContent = track.country && track.country !== track.name ? `${track.country} - ${track.name}` : track.name;
       g.appendChild(o);
     }
     sel.appendChild(g);
@@ -189,13 +189,13 @@ function renderTrack(meta) {
     `${meta.name}${meta.locality ? ` · ${meta.locality}` : ""}${meta.country ? `, ${meta.country}` : ""}` +
     (meta.is_street ? t("track.street") : "");
 
-  $("ro-difficulty").textContent = meta.track_difficulty ?? "—";
-  $("ro-distance").textContent = meta.distance_km ?? "—";
-  $("ro-corners").textContent = meta.corners ?? "—";
-  $("ro-laps").textContent = meta.laps ?? "—";
+  $("ro-difficulty").textContent = meta.track_difficulty ?? "-";
+  $("ro-distance").textContent = meta.distance_km ?? "-";
+  $("ro-corners").textContent = meta.corners ?? "-";
+  $("ro-laps").textContent = meta.laps ?? "-";
 
   $("ro-difficulty-note").textContent = t("ro.difficulty_note");
-  $("ro-deg").textContent = meta.tyre_degradation ?? "—";
+  $("ro-deg").textContent = meta.tyre_degradation ?? "-";
   $("ro-deg-note").textContent = degWindow((meta.stats || {}).deg_window);
 
   renderTrackStats(meta);
@@ -262,15 +262,15 @@ function driverSummary(driverId) {
   if (!d) return "";
   const c = d.career, r = d.recent, s = d.season;
   return [
-    `${d.name} — ${d.team_name}`,
-    t("driver.career", { races: c.races, wins: c.wins, podiums: c.podiums, avg: c.avg_finish ?? "—", dnf: pct(c.dnf_rate, 0) }),
-    t("driver.recent", { seasons: r.seasons, grid: r.avg_grid ?? "—", finish: r.avg_finish ?? "—", rate: pct(r.podium_rate, 0) }),
+    `${d.name} - ${d.team_name}`,
+    t("driver.career", { races: c.races, wins: c.wins, podiums: c.podiums, avg: c.avg_finish ?? "-", dnf: pct(c.dnf_rate, 0) }),
+    t("driver.recent", { seasons: r.seasons, grid: r.avg_grid ?? "-", finish: r.avg_finish ?? "-", rate: pct(r.podium_rate, 0) }),
     t("driver.season", { races: s.races, points: s.points, podiums: s.podiums, best: s.best_finish }),
   ].join("\n");
 }
 
 function historyCell(driverId) {
-  if (!driverId) return `<span class="entry-history none">—</span>`;
+  if (!driverId) return `<span class="entry-history none">-</span>`;
   const h = state.trackHistory[driverId];
   if (!h) return `<span class="entry-history none">${t("history.none")}</span>`;
   const bits = [t("history.starts", { n: h.races })];
@@ -697,7 +697,7 @@ async function trackRecordHtml() {
     .map((r) => `<tr><td>${esc(r.race_name)}</td>
       <td>${r.predicted_podium.map(esc).join(", ")}</td>
       <td>${r.status === "scored" ? (r.actual_podium || []).map(esc).join(", ") : t("record.not_run")}</td>
-      <td>${r.status === "scored" ? `${r.podium_hits}/3${r.winner_hit ? t("record.winner") : ""}` : "—"}</td></tr>
+      <td>${r.status === "scored" ? `${r.podium_hits}/3${r.winner_hit ? t("record.winner") : ""}` : "-"}</td></tr>
       ${stagesRow(r)}`)
     .join("");
   const headline = s.races
@@ -750,7 +750,7 @@ function pct(v, digits = 0) {
 }
 
 function signed(v) {
-  return v == null ? "—" : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(0)} pp`;
+  return v == null ? "-" : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(0)} pp`;
 }
 
 boot();

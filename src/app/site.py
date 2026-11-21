@@ -20,7 +20,7 @@ OG_LOCALES = {
 
 META = {
     "en": {
-        "home": ("Race Predictor — F1 podium predictions for every Grand Prix",
+        "home": ("Race Predictor - F1 podium predictions for every Grand Prix",
                  "Who will finish on the podium? Win, podium and points odds for every Formula 1 driver from 20,000 simulated races, with form, track history, qualifying and weather, plus the championship outlook."),
         "privacy": ("Privacy policy · Race Predictor",
                     "How Race Predictor handles data: no accounts, no cookies, no tracking."),
@@ -30,7 +30,7 @@ META = {
                      "This page does not exist. Go back to the F1 podium predictions."),
     },
     "pl": {
-        "home": ("Race Predictor — prognozy podium F1 na każde Grand Prix",
+        "home": ("Race Predictor - prognozy podium F1 na każde Grand Prix",
                  "Kto stanie na podium? Szanse na wygraną, podium i punkty dla każdego kierowcy Formuły 1 z 20 000 symulowanych wyścigów: forma, historia toru, kwalifikacje i pogoda oraz prognoza mistrzostw."),
         "privacy": ("Polityka prywatności · Race Predictor",
                     "Jak Race Predictor obchodzi się z danymi: bez kont, bez cookies, bez śledzenia."),
@@ -50,7 +50,7 @@ META = {
                      "Diese Seite gibt es nicht. Zurück zu den F1-Podiumsprognosen."),
     },
     "es": {
-        "home": ("Race Predictor — predicciones del podio de F1 para cada Gran Premio",
+        "home": ("Race Predictor - predicciones del podio de F1 para cada Gran Premio",
                  "¿Quién subirá al podio? Probabilidades de victoria, podio y puntos para cada piloto de Fórmula 1 a partir de 20 000 carreras simuladas, con forma, historial del circuito, clasificación y meteorología, además de la previsión del Mundial."),
         "privacy": ("Política de privacidad · Race Predictor",
                     "Cómo trata Race Predictor los datos: sin cuentas, sin cookies, sin seguimiento."),
@@ -60,7 +60,7 @@ META = {
                      "Esta página no existe. Vuelve a las predicciones del podio de F1."),
     },
     "fr": {
-        "home": ("Race Predictor — pronostics du podium F1 pour chaque Grand Prix",
+        "home": ("Race Predictor - pronostics du podium F1 pour chaque Grand Prix",
                  "Qui montera sur le podium ? Chances de victoire, de podium et de points pour chaque pilote de Formule 1 à partir de 20 000 courses simulées, avec la forme, l'historique du circuit, les qualifications et la météo, plus la prévision du championnat."),
         "privacy": ("Politique de confidentialité · Race Predictor",
                     "Comment Race Predictor traite les données : pas de compte, pas de cookies, pas de pistage."),
@@ -70,7 +70,7 @@ META = {
                      "Cette page n'existe pas. Retour aux pronostics du podium F1."),
     },
     "it": {
-        "home": ("Race Predictor — previsioni del podio F1 per ogni Gran Premio",
+        "home": ("Race Predictor - previsioni del podio F1 per ogni Gran Premio",
                  "Chi salirà sul podio? Probabilità di vittoria, podio e punti per ogni pilota di Formula 1 da 20.000 gare simulate, con forma, storico del circuito, qualifiche e meteo, più la previsione del Mondiale."),
         "privacy": ("Informativa sulla privacy · Race Predictor",
                     "Come Race Predictor tratta i dati: nessun account, nessun cookie, nessun tracciamento."),
@@ -80,7 +80,7 @@ META = {
                      "Questa pagina non esiste. Torna alle previsioni del podio F1."),
     },
     "nl": {
-        "home": ("Race Predictor — F1-podiumvoorspellingen voor elke Grand Prix",
+        "home": ("Race Predictor - F1-podiumvoorspellingen voor elke Grand Prix",
                  "Wie staat er op het podium? Kansen op winst, podium en punten voor elke Formule 1-coureur uit 20.000 gesimuleerde races, met vorm, circuithistorie, kwalificatie en weer, plus de kampioenschapsprognose."),
         "privacy": ("Privacybeleid · Race Predictor",
                     "Hoe Race Predictor met gegevens omgaat: geen accounts, geen cookies, geen tracking."),
@@ -90,7 +90,7 @@ META = {
                      "Deze pagina bestaat niet. Terug naar de F1-podiumvoorspellingen."),
     },
     "pt": {
-        "home": ("Race Predictor — previsões de pódio da F1 para cada Grande Prêmio",
+        "home": ("Race Predictor - previsões de pódio da F1 para cada Grande Prêmio",
                  "Quem vai ao pódio? Chances de vitória, pódio e pontos para cada piloto da Fórmula 1 a partir de 20.000 corridas simuladas, com fase, histórico no circuito, classificação e clima, além da previsão do campeonato."),
         "privacy": ("Política de privacidade · Race Predictor",
                     "Como o Race Predictor trata os dados: sem contas, sem cookies, sem rastreamento."),

@@ -171,7 +171,7 @@ STRINGS.en = {
   "about.title": "How this predicts a podium",
   "about.close": "Close",
   "about.body": ({ imp }) => `
-  <p>Three gradient boosting classifiers score every car on the grid — for a win, a
+  <p>Three gradient boosting classifiers score every car on the grid - for a win, a
   podium and a points finish. Each score is then anchored against what a start from
   that slot has historically been worth, and the whole field is run through 20,000
   simulated races. Every probability here is read off that one simulation, which is
@@ -179,7 +179,7 @@ STRINGS.en = {
 
   <h3>Why the grid gets a vote</h3>
   <p>Left to itself the model overrode grid order about once every two races, and was
-  right 43% of the time — against the 57% it would have managed by leaving the order
+  right 43% of the time - against the 57% it would have managed by leaving the order
   alone. Its disagreements were worse than useless. So each score is now blended, in
   log-odds, with the empirical conversion rate for that grid slot; the model still
   moves a car, but only in proportion to how strongly it disagrees. The blend weight
@@ -188,14 +188,14 @@ STRINGS.en = {
   <h3>What ends a race</h3>
   <p>Each simulated race rolls for reliability and for crashing out, separately.
   Breaking down belongs to the car; crashing belongs to the driver, at a particular
-  circuit, and mostly to the part of the field fighting for position — which is why
+  circuit, and mostly to the part of the field fighting for position - which is why
   Monaco and Zandvoort give the same driver very different odds of seeing the flag.</p>
 
   <h3>What it looks at</h3>
   <p>Grid slot and qualifying gap; the driver's recent form, reliability and record
   against their own team mate; the car's pace and podium rate; the driver's own
   history at <em>this</em> circuit; and what the circuit itself tends to do to a race
-  — how much the order shuffles, how often pole converts, how many cars retire.
+  - how much the order shuffles, how often pole converts, how many cars retire.
   Heaviest-weighted features right now:</p>
   <ul>${imp}</ul>
 
@@ -206,7 +206,7 @@ STRINGS.en = {
   rather than by year.</p>
 
   <h3>Validated season by season</h3>
-  <p>Never a random split — the model is trained only on seasons before the one it is
+  <p>Never a random split - the model is trained only on seasons before the one it is
   scored on, so nothing from the future leaks in. Every number is measured against the
   baseline of reading the podium off the top three grid slots and the win off pole,
   which in modern Formula 1 is a much harder bar than it sounds: a top-three start
@@ -231,6 +231,6 @@ STRINGS.en = {
   "notfound.title": "Off the track",
   "notfound.text": "This page does not exist, or it has been moved. The race is still on, though.",
   "notfound.home": "Go to the predictions",
-  "meta.title": "Race Predictor — F1 podium predictions for every Grand Prix",
+  "meta.title": "Race Predictor - F1 podium predictions for every Grand Prix",
   "meta.race": ({ race }) => `${race}: podium prediction · Race Predictor`,
 };

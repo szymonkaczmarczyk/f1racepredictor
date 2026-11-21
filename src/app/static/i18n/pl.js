@@ -232,6 +232,6 @@ STRINGS.pl = {
   "notfound.title": "Wypadłeś z toru",
   "notfound.text": "Ta strona nie istnieje albo została przeniesiona. Ale wyścig trwa dalej.",
   "notfound.home": "Przejdź do prognoz",
-  "meta.title": "Race Predictor — prognozy podium F1 na każde Grand Prix",
+  "meta.title": "Race Predictor - prognozy podium F1 na każde Grand Prix",
   "meta.race": ({ race }) => `${race}: prognoza podium · Race Predictor`,
 };

@@ -231,6 +231,6 @@ STRINGS.fr = {
   "notfound.title": "Sortie de piste",
   "notfound.text": "Cette page n'existe pas ou a été déplacée. Mais la course continue.",
   "notfound.home": "Voir les pronostics",
-  "meta.title": "Race Predictor — pronostics du podium F1 pour chaque Grand Prix",
+  "meta.title": "Race Predictor - pronostics du podium F1 pour chaque Grand Prix",
   "meta.race": ({ race }) => `${race} : pronostic du podium · Race Predictor`,
 };
